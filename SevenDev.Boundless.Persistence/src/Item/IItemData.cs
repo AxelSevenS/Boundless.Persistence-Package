@@ -7,7 +7,8 @@ public interface IItemData : IUIObject {
 	protected static readonly Dictionary<string, IItemData> Registry = [];
 	public IDataKeyProvider KeyProvider { get; }
 
-	public static IItemData? GetData(IDataKeyProvider? keyProvider) => keyProvider is not null && Registry.TryGetValue(keyProvider.Key, out IItemData? data) ? data : null;
+	public static IItemData? GetData(string key) => Registry.TryGetValue(key, out IItemData? data) ? data : null;
+	public static IItemData? GetData(IDataKeyProvider? keyProvider) => keyProvider is not null ? GetData(keyProvider.Key) : null;
 	public static bool RegisterData(IItemData data, bool overwrite = false) {
 		string key = data.KeyProvider.Key;
 		if (string.IsNullOrWhiteSpace(key)) {
@@ -51,7 +52,8 @@ public interface IItemData<out T> : IItemData where T : IItem<T> {
 	public new IDataKeyProvider<T> KeyProvider { get; }
 
 
-	public static IItemData<T>? GetData(IDataKeyProvider<T>? keyProvider) => keyProvider is not null && TypedRegistry.TryGetValue(keyProvider.Key, out IItemData<T>? data) ? data : null;
+	public static IItemData<T>? GetData(string key) => TypedRegistry.TryGetValue(key, out IItemData<T>? data) ? data : null;
+	public static IItemData<T>? GetData(IDataKeyProvider<T>? keyProvider) => keyProvider is not null ? GetData(keyProvider.Key) : null;
 	public static bool RegisterData(IItemData<T> data, bool overwrite = false) {
 		if (!IItemData.RegisterData(data, overwrite)) return false;
 
