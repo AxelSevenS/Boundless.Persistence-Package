@@ -25,15 +25,17 @@ public abstract class PersistenceData<T>(T item) : IPersistenceData<T> where T :
 		return instance;
 	}
 
-	protected abstract T Instantiate();
+	protected abstract T? Instantiate();
 	protected virtual void LoadInternal(T item) { }
 }
 
 public class ItemPersistenceData<T>(T item) : PersistenceData<T>(item) where T : class, IItem<T> {
-	private readonly string DataKey = item.KeyProvider.Key;
+	private readonly ItemKey? DataKey = item.KeyProvider.ItemKey;
 
-	public IItemData<T> Data => _data ??= IItemData<T>.GetData(DataKey) ?? throw new System.InvalidOperationException($"Could not find Data of type {typeof(T)} with key {DataKey}.");
-	private IItemData<T> _data;
+	public IItemData<T>? Data => _data ??=
+		DataKey is null ? null
+		: IItemData<T>.GetData(DataKey) ?? throw new System.InvalidOperationException($"Could not find Data of type {typeof(T)} with key {DataKey.String}.");
+	private IItemData<T>? _data;
 
-	protected sealed override T Instantiate() => Data.Instantiate();
+	protected sealed override T? Instantiate() => Data?.Instantiate();
 }

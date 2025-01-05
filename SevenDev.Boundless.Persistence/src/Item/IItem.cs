@@ -1,10 +1,10 @@
 namespace SevenDev.Boundless.Persistence;
 
 public interface IItem {
-	public IDataKeyProvider KeyProvider { get; }
+	public IItemKeyProvider KeyProvider { get; }
 }
 
 public interface IItem<out T> : IItem where T : IItem<T> {
-	IDataKeyProvider IItem.KeyProvider => KeyProvider;
-	public new IDataKeyProvider<T> KeyProvider { get; }
+	IItemKeyProvider IItem.KeyProvider => KeyProvider;
+	public new IItemKeyProvider<T> KeyProvider { get; }
 }
