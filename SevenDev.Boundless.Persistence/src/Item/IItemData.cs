@@ -1,6 +1,8 @@
 namespace SevenDev.Boundless.Persistence;
 
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using Godot;
 
 public interface IItemData : IUIObject {
@@ -16,12 +18,14 @@ public interface IItemData : IUIObject {
 			return false;
 		}
 
-		if (!overwrite && Registry.ContainsKey(key)) {
+		ref IItemData? existingData = ref CollectionsMarshal.GetValueRefOrAddDefault(Registry, key, out bool exists);
+
+		if (!overwrite && exists) {
 			if (log) GD.PrintErr($"Data with key {key} already exists.");
 			return false;
 		}
 
-		Registry[key] = data;
+		existingData = data;
 		if (log) GD.Print($"Registered {key} => {data}");
 		return true;
 	}
@@ -65,12 +69,14 @@ public interface IItemData<out T> : IItemData where T : IItem<T> {
 
 		if (!IItemData.RegisterData(data, false, overwrite)) return false;
 
-		if (TypedRegistry.ContainsKey(key) && !overwrite) {
+		ref IItemData<T>? existingData = ref CollectionsMarshal.GetValueRefOrAddDefault(TypedRegistry, key, out bool exists);
+
+		if (!overwrite && exists) {
 			if (log) GD.PrintErr($"Data with key {data.KeyProvider.ItemKey} (type {typeof(T)}) already exists.");
 			return false;
 		}
 
-		TypedRegistry[key] = data;
+		existingData = data;
 		if (log) GD.Print($"Registered {key} => {data} (type {typeof(T)})");
 		return true;
 	}
