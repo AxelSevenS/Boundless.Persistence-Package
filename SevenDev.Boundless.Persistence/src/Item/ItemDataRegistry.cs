@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace SevenDev.Boundless.Persistence;
 
-public class ItemDataRegistry {
+public class ItemDataRegistry : IItemDataRegistry {
 	public readonly Action<string>? Logger;
 	private readonly Dictionary<ItemKey, IItemData> _registry = [];
 
@@ -18,8 +18,6 @@ public class ItemDataRegistry {
 		IItemData? untypedItem = _registry.TryGetValue(key, out IItemData? data) ? data : null;
 		return untypedItem as IItemData<T>;
 	}
-	public IItemData<T>? GetData<T>(IItemKeyProvider keyProvider) where T : IItem =>
-		keyProvider.ItemKey is not null ? GetData<T>(keyProvider.ItemKey) : null;
 
 	public bool RegisterData<T>(IItemData<T> data, bool overwrite = false) where T : IItem {
 		ItemKey? key = data.KeyProvider.ItemKey;
