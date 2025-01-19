@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace SevenDev.Boundless.Persistence;
 
-public class ItemDataRegistry : IItemDataRegistry {
+public class ItemDataRegistry : IItemDataContainer {
 	public readonly Action<string>? Logger;
 	private readonly Dictionary<ItemKey, IItemData> _registry = [];
 
@@ -19,34 +19,40 @@ public class ItemDataRegistry : IItemDataRegistry {
 		return untypedItem as IItemData<T>;
 	}
 
-	public bool RegisterData<T>(IItemData<T> data, bool overwrite = false) where T : IItem {
+	public bool RegisterData(IItemData data, bool overwrite = false) {
 		ItemKey? key = data.KeyProvider.ItemKey;
 		if (key is null) {
-			Logger?.Invoke($"Data key is null. {data} (type {typeof(T)})");
+			Logger?.Invoke($"Data key is null. {data}");
 			return false;
 		}
 
 		ref IItemData? existingData = ref CollectionsMarshal.GetValueRefOrAddDefault(_registry, key, out bool exists);
 
 		if (!overwrite && exists) {
-			Logger?.Invoke($"Data with key {data.KeyProvider.ItemKey} (type {typeof(T)}) already exists.");
+			Logger?.Invoke($"Data with key {data.KeyProvider.ItemKey} already exists.");
 			return false;
 		}
 
 		existingData = data;
-		Logger?.Invoke($"Registered {key} => {data} (type {typeof(T)})");
+		Logger?.Invoke($"Registered {key} => {data}");
 		return true;
 	}
 
-	public bool UnregisterData<T>(IItemData<T> data) where T : IItem {
+	public bool UnregisterData(IItemData data) {
 		ItemKey? key = data.KeyProvider.ItemKey;
 		if (key is null) {
-			Logger?.Invoke($"Data key is null. {data} (type {typeof(T)})");
+			Logger?.Invoke($"Data key is null. {data}");
 			return false;
 		}
 
 		_registry.Remove(key);
-		Logger?.Invoke($"Unregistered {key} => {data} (type {typeof(T)})");
+		Logger?.Invoke($"Unregistered {key} => {data}");
+		return true;
+	}
+
+	public bool Clear() {
+		_registry.Clear();
+		Logger?.Invoke("Cleared all data.");
 		return true;
 	}
 }
