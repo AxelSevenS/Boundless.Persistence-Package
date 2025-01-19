@@ -24,31 +24,31 @@ public class ItemDataRegistry {
 	public bool RegisterData<T>(IItemData<T> data, bool overwrite = false) where T : IItem {
 		ItemKey? key = data.KeyProvider.ItemKey;
 		if (key is null) {
-			Logger($"Data key is null. {data} (type {typeof(T)})");
+			Logger?.Invoke($"Data key is null. {data} (type {typeof(T)})");
 			return false;
 		}
 
 		ref IItemData? existingData = ref CollectionsMarshal.GetValueRefOrAddDefault(_registry, key, out bool exists);
 
 		if (!overwrite && exists) {
-			Logger($"Data with key {data.KeyProvider.ItemKey} (type {typeof(T)}) already exists.");
+			Logger?.Invoke($"Data with key {data.KeyProvider.ItemKey} (type {typeof(T)}) already exists.");
 			return false;
 		}
 
 		existingData = data;
-		Logger($"Registered {key} => {data} (type {typeof(T)})");
+		Logger?.Invoke($"Registered {key} => {data} (type {typeof(T)})");
 		return true;
 	}
 
 	public bool UnregisterData<T>(IItemData<T> data) where T : IItem {
 		ItemKey? key = data.KeyProvider.ItemKey;
 		if (key is null) {
-			Logger($"Data key is null. {data} (type {typeof(T)})");
+			Logger?.Invoke($"Data key is null. {data} (type {typeof(T)})");
 			return false;
 		}
 
 		_registry.Remove(key);
-		Logger($"Unregistered {key} => {data} (type {typeof(T)})");
+		Logger?.Invoke($"Unregistered {key} => {data} (type {typeof(T)})");
 		return true;
 	}
 }
