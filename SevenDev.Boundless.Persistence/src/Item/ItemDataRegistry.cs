@@ -20,7 +20,7 @@ public class ItemDataRegistry : IItemDataContainer {
 	}
 
 	public bool RegisterData(IItemData data, bool overwrite = false) {
-		ItemKey? key = data.KeyProvider.ItemKey;
+		ItemKey? key = data.ItemKey;
 		if (key is null) {
 			Logger?.Invoke($"Data key is null. {data}");
 			return false;
@@ -29,7 +29,7 @@ public class ItemDataRegistry : IItemDataContainer {
 		ref IItemData? existingData = ref CollectionsMarshal.GetValueRefOrAddDefault(_registry, key, out bool exists);
 
 		if (!overwrite && exists) {
-			Logger?.Invoke($"Data with key {data.KeyProvider.ItemKey} already exists.");
+			Logger?.Invoke($"Data with key {data.ItemKey} already exists.");
 			return false;
 		}
 
@@ -39,7 +39,7 @@ public class ItemDataRegistry : IItemDataContainer {
 	}
 
 	public bool UnregisterData(IItemData data) {
-		ItemKey? key = data.KeyProvider.ItemKey;
+		ItemKey? key = data.ItemKey;
 		if (key is null) {
 			Logger?.Invoke($"Data key is null. {data}");
 			return false;

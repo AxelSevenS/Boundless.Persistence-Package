@@ -30,7 +30,7 @@ public abstract class PersistenceData<T>(T item) : IPersistenceData<T> where T :
 }
 
 public class ItemPersistenceData<T>(T item) : PersistenceData<T>(item) where T : class, IItem {
-	private readonly ItemKey? DataKey = item.KeyProvider.ItemKey;
+	private readonly ItemKey? DataKey = item.Data?.ItemKey;
 
 	private IItemData<T>? _data;
 

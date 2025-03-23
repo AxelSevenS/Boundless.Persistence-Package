@@ -1,8 +1,7 @@
 namespace SevenDev.Boundless.Persistence;
 
 public interface IItemData : IUIObject {
-	public IItemKeyProvider KeyProvider { get; }
-
+	public ItemKey? ItemKey { get; }
 	public object? Instantiate();
 }
 
