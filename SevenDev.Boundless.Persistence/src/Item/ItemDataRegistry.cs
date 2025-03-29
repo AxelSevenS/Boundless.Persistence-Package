@@ -21,32 +21,32 @@ public class ItemDataRegistry : IItemDataContainer {
 
 	public bool RegisterData(IItemData data, bool overwrite = false) {
 		ItemKey? key = data.ItemKey;
-		if (key is null) {
+		if (!key.HasValue) {
 			Logger?.Invoke($"Data key is null. {data}");
 			return false;
 		}
 
-		ref IItemData? existingData = ref CollectionsMarshal.GetValueRefOrAddDefault(_registry, key, out bool exists);
+		ref IItemData? existingData = ref CollectionsMarshal.GetValueRefOrAddDefault(_registry, key.Value, out bool exists);
 
 		if (!overwrite && exists) {
-			Logger?.Invoke($"Data with key {data.ItemKey} already exists.");
+			Logger?.Invoke($"Data with key {key.Value} already exists.");
 			return false;
 		}
 
 		existingData = data;
-		Logger?.Invoke($"Registered {key} => {data}");
+		Logger?.Invoke($"Registered {key.Value} => {data}");
 		return true;
 	}
 
 	public bool UnregisterData(IItemData data) {
 		ItemKey? key = data.ItemKey;
-		if (key is null) {
+		if (!key.HasValue) {
 			Logger?.Invoke($"Data key is null. {data}");
 			return false;
 		}
 
-		_registry.Remove(key);
-		Logger?.Invoke($"Unregistered {key} => {data}");
+		_registry.Remove(key.Value);
+		Logger?.Invoke($"Unregistered {key.Value} => {data}");
 		return true;
 	}
 
