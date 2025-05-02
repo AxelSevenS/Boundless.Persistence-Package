@@ -10,14 +10,10 @@ public interface IPersistenceData<out T> : IPersistenceData where T : class {
 }
 
 public abstract class PersistenceData<T>(T item) : IPersistenceData<T> where T : class {
-	public readonly CustomizationData? Customization = item is ICustomizable customizable ? CustomizationData.GetFrom(customizable) : null;
 
 	public T Load(IItemDataProvider registry) {
 		T instance = Instantiate(registry);
 
-		if (instance is ICustomizable customizable && Customization is not null) {
-			Customization.ApplyTo(customizable);
-		}
 		LoadInternal(instance, registry);
 
 		return instance;

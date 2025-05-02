@@ -1,6 +1,6 @@
 namespace SevenDev.Boundless.Persistence;
 
-public interface IItemData : IUIObject {
+public interface IItemData {
 	public ItemKey? ItemKey { get; }
 	public object? Instantiate();
 }

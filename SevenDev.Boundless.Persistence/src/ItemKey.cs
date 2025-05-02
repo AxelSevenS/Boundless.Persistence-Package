@@ -1,15 +1,21 @@
 namespace SevenDev.Boundless.Persistence;
 
 using System;
-using Godot;
 
 [Serializable]
-public struct ItemKey : IEquatable<ItemKey> {
+public partial struct ItemKey : IEquatable<ItemKey> {
+	[System.Text.RegularExpressions.GeneratedRegex(@"[^a-z0-9\-_=\|!#~]")]
+	private static partial System.Text.RegularExpressions.Regex ItemKeySanitizeRegex();
+
+	public static string ToItemKeyFormat(string key) {
+		return ItemKeySanitizeRegex().Replace(key.ToLowerInvariant(), "_");
+	}
+
 	public readonly string String;
 
 	public ItemKey(string @string) {
 		if (string.IsNullOrWhiteSpace(@string)) throw new ArgumentException("Key cannot be null or empty.", nameof(@string));
-		String = @string.ToSnakeCase();
+		String = ToItemKeyFormat(@string);
 	}
 
 	public override string ToString() => String;
