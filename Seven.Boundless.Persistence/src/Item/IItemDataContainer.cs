@@ -1,4 +1,4 @@
-namespace SevenDev.Boundless.Persistence;
+namespace Seven.Boundless.Persistence;
 
 public interface IItemDataContainer : IItemDataProvider {
 	bool RegisterData(IItemData data, bool overwrite = false);

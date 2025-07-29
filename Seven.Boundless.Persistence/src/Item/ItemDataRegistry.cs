@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace SevenDev.Boundless.Persistence;
+namespace Seven.Boundless.Persistence;
 
 public class ItemDataRegistry : IItemDataContainer {
 	public readonly Action<string>? Logger;

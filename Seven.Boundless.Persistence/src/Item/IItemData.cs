@@ -1,4 +1,4 @@
-namespace SevenDev.Boundless.Persistence;
+namespace Seven.Boundless.Persistence;
 
 public interface IItemData {
 	public ItemKey? ItemKey { get; }

@@ -2,7 +2,7 @@
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenDev.Boundless.Persistence", "SevenDev.Boundless.Persistence\SevenDev.Boundless.Persistence.csproj", "{AF36F4AD-DB26-4877-9AA8-542C60E5C8B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seven.Boundless.Persistence", "Seven.Boundless.Persistence\Seven.Boundless.Persistence.csproj", "{AF36F4AD-DB26-4877-9AA8-542C60E5C8B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

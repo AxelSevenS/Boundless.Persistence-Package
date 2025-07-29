@@ -6,18 +6,18 @@
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <CopyAllFiles>true</CopyAllFiles>
-    <RootNamespace>SevenDev.Boundless.Persistence</RootNamespace>
+    <RootNamespace>Seven.Boundless.Persistence</RootNamespace>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <DebugType>portable</DebugType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-    <Title>SevenDev.Boundless.Persistence</Title>
+    <Title>Seven.Boundless.Persistence</Title>
     <Version>1.3.0</Version>
     <Description />
     <Authors>Seven</Authors>
 
-    <PackageId>SevenDev.Boundless.Persistence</PackageId>
-    <PackageReleaseNotes>SevenDev.Boundless.Persistence release.</PackageReleaseNotes>
+    <PackageId>Seven.Boundless.Persistence</PackageId>
+    <PackageReleaseNotes>Seven.Boundless.Persistence release.</PackageReleaseNotes>
     <!-- <PackageIcon>icon.png</PackageIcon> -->
     <PackageTags />
     <!-- <PackageReadmeFile>README.md</PackageReadmeFile>
