@@ -22,10 +22,10 @@
     <PackageTags />
     <!-- <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile> -->
-    <PackageProjectUrl>https://github.com/AxelSevenS/Boundless.Persistence-Package</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/SevenSoftware7/Boundless.Persistence-Package</PackageProjectUrl>
 
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>git@github.com:AxelSevenS/Boundless.Persistence-Package.git</RepositoryUrl>
+    <RepositoryUrl>git@github.com:SevenSoftware7/Boundless.Persistence-Package.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
